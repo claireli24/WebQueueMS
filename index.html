@@ -1,13 +1,259 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="refresh" content="0;url=pages/index.html">
-<title>SB Admin 2</title>
-<script language="javascript">
-    window.location.href = "pages/index.html"
-</script>
-</head>
-<body>
-Go to <a href="pages/index.html">/pages/index.html</a>
-</body>
+<!-- <!DOCTYPE html> -->
+<html ng-app="myApp" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Queue Management System</title>
+
+        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="dist/css/sb-admin-2.css" rel="stylesheet">
+        <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+        <script type="text/javascript" src="library/angular.min.js"></script>
+        <script type="text/javascript" src="library/firebase.js"></script>
+        <script type="text/javascript" src="library/angularfire.min.js"></script>
+
+<!--         <script src="messaging-public.realtime.co/js/2.1.0/ortc.js"></script>
+        <script>
+            ortcClient = RealtimeMessaging.createClient();
+            ortcClient.setClusterUrl('https://ortc-developers.realtime.co/server/ssl/2.1/');
+            ortcClient.connect('sX5i1c', 'testToken');
+
+            ortcClient.onConnected = function(ortc) {
+                console.log("Connected to " + ortcClient.getUrl());
+
+                ortcClient.subscribe('myChannel', true, function(ortc, channel, message) {
+                    console.log(message);
+                });
+
+                var myMessage = {
+                    foo: "bar"
+                };
+
+                ortcClient.send('myChannel', JSON.stringify(myMessage));
+            };
+        </script> -->
+    </head>
+
+    <body ng-controller="QueuesCtrl">
+        <div id="wrapper">
+            <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">Queue Management System</a>
+                </div>
+
+                <ul class="nav navbar-top-links navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-gear fa-fw"></i> <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a id="shutdownid" onclick="jsfunction()" href="javascript:void(0);"><i class="fa fa-power-off fa-fw"></i> Shut Down</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <div class="navbar-default sidebar" role="navigation">
+                    <div class="sidebar-nav navbar-collapse">
+                        <ul class="nav" id="side-menu">
+                            <!-- <li class="sidebar-search">
+                                <div class="input-group custom-search-form">
+                                    <input type="text" class="form-control" placeholder="Search...">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </li> -->
+                            <li>
+                                <img src="img/rasppi.png" width="250" height="220" />
+                            </li>
+                            <li>
+                                <a href="index.html"><i class="fa fa-home fa-fw"></i> Home </a>
+                            </li>
+<!--                             <li>
+                                <a href="#"><i class="fa fa-credit-card fa-fw"></i> Credit Card </a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Share </a>
+                            </li>
+                             <li>
+                                <a href="#"><i class="fa fa-calendar fa-fw"></i> Calendar </a>
+                            </li> -->
+<!--                             <li>
+                                <a href="panels-wells.html"><i class="fa fa-table fa-fw"></i> Colour Panel</a>
+                            </li>
+                            <li>
+                                <a href="buttons.html"><i class="fa fa-table fa-fw"></i> Outline Buttons</a>
+                            </li>
+                            <li>
+                                <a href="icons.html"><i class="fa fa-table fa-fw"></i> Icons</a>
+                            </li>
+                            <li>
+                                <a href="login.html"><i class="fa fa-table fa-fw"></i> Login Page</a>
+                            </li> -->
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div id="page-wrapper">
+            <br>
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-sitemap fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <!-- <div class="huge">100</div> -->
+                                        <!-- <div>Total</div> -->
+                                        <div>Banking</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-red">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-user fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <!-- <div class="huge">10</div> -->
+                                        <div>Personal/Private</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-yellow">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-group fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <!-- <div class="huge">20</div> -->
+                                        <div>Business</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-green">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-check-circle fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <!-- <div class="huge">70</div> -->
+                                        <!-- <div>Services done</div> -->
+                                        <div>Services</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <strong>Customers Queue</strong>
+                                <!-- <input type="text" ng-model="getDate" id="getDate"> -->
+                            </div>
+                            <div class="panel-body">
+                                <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>Number</th>
+                                            <!-- <th>Date</th> -->
+                                            <th>Customer</th>
+                                            <th>IC No</th>
+                                            <th>Service</th>
+                                            <th>Status</th>
+                                            <th>Notify</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <!-- <tbody ng-repeat="queue in queues" | FilterByMonth:searchText'> -->
+                                        <!-- {{queue.$id}} -->
+                                        <tr ng-repeat="queue in queues" class="odd gradeX">
+                                            <td>{{queue.QNum}}</td>
+                                            <!-- <td>{{queue.TDate}}</td> -->
+                                            <td>{{queue.Username}}</td>
+                                            <td>{{queue.IC}}</td>
+                                            <td>{{queue.Service}}</td>
+                                            <td class="center">{{queue.Status}}</td>
+                                            <!-- <td class="center"><input id="tempStatus" type="text" name="tempStatus" value="Pending" style="
+                                                border: none;
+                                                background: transparent;
+                                                border-bottom: 1px solid #fff;
+                                                outline: none;
+                                            "></td> -->
+                                            <!-- <td class="center"><button id="btn" type="submit" onclick="click()" >Call</button><input type="hidden" name="userToken" value={{num.Token}}></td> -->
+                                            <td class="center"><button id="btn" type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" ng-click="callAndUpdate(queue.QNum); callCustomer(queue.Token)" value="{{queue.Token}}">Call</button>
+<!--                                             <td class="center"><button id="btn" type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" ng-click="callAndUpdate(num); callCustomer(num.Token)" value="{{num.Token}}">Call</button> -->
+                                            <input type="hidden" id="hiddenToken" name="userToken" value={{queue.Token}}></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+       <!--  <script src="../vendor/jquery/jquery.min.js"></script> -->
+        <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+        <script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
+        <script src="vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+        <script src="vendor/datatables-responsive/dataTables.responsive.js"></script>
+
+        <script type="text/javascript" src="js/index.js"></script>
+        <!-- <script type="text/javascript" src="js/index2.js"></script> -->
+        <script src="dist/js/sb-admin-2.js"></script>
+        <script>
+        $(document).ready(function() {
+            $('#example').DataTable({
+               responsive: true
+            });
+        }); 
+        </script>
+        <script type="text/javascript">
+            window.onload = function() {
+                var a = document.getElementById("shutdownid");
+                a.onclick = function() {
+                    parent.close();
+                    return false;
+                }
+            }
+        </script>
+    </body>
 </html>
