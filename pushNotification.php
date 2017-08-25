@@ -1,24 +1,7 @@
 <?php
-	// $conn = mysqli_connect("localhost","root","","id1752843_rasppiqueuemsdb");
-	//$conn = mysqli_connect("localhost","root","rasppiqueuemspassword","id1752843_rasppiqueuemsdb");
-	//$title = $_REQUEST['title'];
-	//$message = $_REQUEST['message'];
 	$key = $_REQUEST['hiddenToken'];
-	// $title = $_POST['title'];
-	// $message = $_POST['message'];
-	// $key = $_POST['hiddenToken'];
-	// echo $title;
-	// echo $message;
 
-	// echo $key;
-	
-	// $token = 'c2JvIZy1m18:APA91bGKmOyIbTwb-S-OqDT_fHI3Du23unXImwzAd9GKlQn4iPyTcjghAWbRwaEwi3N0rMc_4YM1jFqH44z9jo0xn_-5jLhAzOPNSRDOCPW4w4D8rCHWJfiV9sEzRZ3qCoNdUHvc96Fa';
-	// $key = 'c2JvIZy1m18:APA91bGKmOyIbomoTwb-S-OqDT_fHI3Du23unXImwzAd9GKlQn4iPyTcjghAWbRwaEwi3N0rMc_4YM1jFqH44z9jo0xn_-5jLhAzOPNSRDOCPW4w4D8rCHWJfiV9sEzRZ3qCoNdUHvc96Fa';
-
-	define('API_ACCESS_KEY', 'AAAAKxG9e3w:APA91bG286iQjLc8l88Z0n96qBj3xG17sQHbQsQHGj6RjLNUFcq9CHyUmQ9Hz4Y6wGgy4Ohv3X1IEHxPlNzFW5_3_PgdbcrWRr4-feFQ7u8uJVBPFdv0fFuCO3jZr-9hcOoDxC5YCk7S');	
-	
-	// $sql = "SELECT token FROM fcm";
-	// $result = mysqli_query($conn,$sql);
+	define('API_ACCESS_KEY', 'your_fcm_access_key_here');	
 	
 	$field = array(
 		'to'=>$key,
@@ -49,6 +32,4 @@
         die('Curl failed: ' . curl_error($ch));
     }
 	curl_close($ch);
-
-	// echo $key;
 ?>		
